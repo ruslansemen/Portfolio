@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Galery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+    <div id="test" class="anu_class"></div>
+    <div id="big_picture"></div>
+    <div id="galery">
+        <img id="image_1" src="img/small/img_1.ELL8U.jpg" alt="img">
+        <img id="image_2" src="img/small/img_2.1usqO.jpg" alt="img">
+        <img id="image_3" src="img/small/img_3.pFI7A.jpg" alt="img">
+        <img id="image_4" src="img/small/img_4.a1OHD.jpg" alt="img">
+    </div>
+
+    <script>
+        var clss = document.getElementById("test");
+        console.log(clss);
+        //console.log(clss.className);
+
+
+        // функция-обработчик клика на маленьких картинках
+        function changeBigPicture(e) {
+            // задаём массив с кодом html, содержащий соответствующие большие картинки
+            var arrPict = ["<img src=\"img/big/img_1_big.jpg\" alt=\"img\">", "<img src=\"img/big/img_2_big.jpg\" alt=\"img\">", "<img src=\"img/big/img_3_big.jpg\" alt=\"img\">", "<img src=\"img/big/img_4_big.jpg\" alt=\"img\">"];
+            var pict = document.getElementById("big_picture"); // получаем элемент большой картинки
+            var targId = e.target.id; // из обекта события получаем элемент-источник события, из него считываем его id (строка)
+            var arrName = targId.split("_"); // строку разбиваем на массив элементов, разделённых символом "_"
+            //console.log(arrName);
+            var num = arrName[1] - 1; // получается номер соответствующего элемента массива arrPict
+            pict.innerHTML = arrPict[num]; // из массива arrPict берётся соответствующий код html и вставляется в разметку в блок для большой картинки
+        }
+
+        var images = document.getElementsByTagName("img"); // получаем коллекцию элементов с тегом "img"
+        for (var i = 0; i < images.length; i++) {
+            images[i].onclick = changeBigPicture;
+        } // в этом цикле перебираем коллекцию элементов и назначаем каждому обработчик события onclick
+
+        var pict = document.getElementById("big_picture"); // получаем доступ к элементу с id "big_picture"
+        pict.innerHTML = "<img src=\"img/big/img_1_big.jpg\" alt=\"img\">"; // задаем начальное содержание элементу с id "big_picture" так как в html разметке он изначально пустой
+
+    </script>
+</body>
+
+</html>

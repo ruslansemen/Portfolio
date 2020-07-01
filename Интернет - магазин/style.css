@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.block_of_item {
+  width: 100px;
+  min-height: 100px;
+  border: double black;
+  display: inline-block;
+  margin: 25px;
+  padding-top: 25px;
+  vertical-align: bottom;
+}
+
+.block_of_item p {
+  text-align: center;
+}
+
+.block_of_item p:first-child {
+  margin-top: 35px;
+}
+
+.btn {
+  display: block;
+  width: 60%;
+  height: 30%;
+  margin: 0 auto;
+}
+#basket {
+  width: 50%;
+  border: solid black 1px;
+}
+
+#basket div {
+  display: flex;
+  justify-content: space-between;
+}

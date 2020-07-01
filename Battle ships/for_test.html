@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        var processGuess = function(guess) {
+            var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
+            if (guess === null || guess.length !== 2) {
+                alert("Oops, please enter a letter and a number on the board.");
+            } else {
+                firstChar = guess.charAt(0);
+                console.log("firstChar: " + firstChar + " " + typeof(firstChar));
+                var row = alphabet.indexOf(firstChar);
+                console.log("row: " + row + " " + typeof(row));
+            }
+        }
+
+        processGuess("D1");
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
