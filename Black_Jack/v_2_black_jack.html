@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Игра Блак Джэк со ставками
+      function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      function getCard() {
+        var cards = ["6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+        return cards[getRandomInt(0, cards.length - 1)];
+      }
+
+      function getSum(arr) {
+        var summ = 0;
+        //  сначала считаем все карты кроме тузов
+        for (var j = 0; j < arr.length; j++) {
+          if (arr[j] != "A") {
+            if (
+              arr[j] == "10" ||
+              arr[j] == "J" ||
+              arr[j] == "Q" ||
+              arr[j] == "K"
+            ) {
+              summ = summ + 10;
+            } else {
+              summ = summ + parseInt(arr[j]);
+            }
+          }
+        }
+        //  туз считается как 1, если текущая сумма больше 10, иначе - как 11
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i] == "A") {
+            if (summ <= 10) {
+              summ = summ + 11;
+            } else {
+              summ = summ + 1;
+            }
+          }
+        }
+        return summ;
+      }
+
+      function getStatus() {
+        return (
+          "Диллер: " + dealer.join(" ") + "Игрок: " + player.join(" ") + "."
+        );
+      }
+
+      var repeating;
+      var count = 1000;
+
+      do {
+        var rate = parseInt(
+          prompt("У вас на счёте " + count + " Сделайте ставку")
+        );
+        var dealer = [getCard()];
+        var player = [getCard(), getCard()];
+        // var player = ["A", "A"];
+        if (getSum(player) == 21) {
+          count = count + rate;
+          alert(
+            getStatus() +
+              " Везунчик! Поздравляем, у вас Black Jack (21 очко)" +
+              " Счёт: " +
+              count
+          );
+        } else {
+          var answer = "";
+          do {
+            if (getSum(player) > 21) {
+              alert(getStatus() + getSum(player) + " Перебор, сожалеем (((");
+              count = count - rate;
+              break;
+            } else if (getSum(player) == 21) {
+              count = count + rate;
+              alert(
+                getStatus() +
+                  getSum(player) +
+                  " Black Jack!" +
+                  " Счёт: " +
+                  count
+              );
+              break;
+            } else {
+              answer = prompt(
+                getStatus() + "Хотите ещё карту? 1 - Да, иначе - Нет"
+              );
+
+              // сдаём карту игроку либо прекращаем игру
+              if (answer == "1") {
+                player.push(getCard());
+              } else {
+                while (getSum(dealer) < 17) {
+                  dealer.push(getCard());
+                }
+
+                var summDealer = getSum(dealer);
+                var sumPlayer = getSum(player);
+
+                if (summDealer == 21) {
+                  count = count - rate;
+                  alert(
+                    "У дилера Black Jack! T_T " +
+                      getStatus() +
+                      " Счёт: " +
+                      count
+                  );
+                } else if (summDealer > 21) {
+                  count = count + rate;
+                  alert(
+                    "У дилера перебор! ]:-> " + getStatus() + " Счёт: " + count
+                  );
+                } else if (summDealer == sumPlayer) {
+                  alert("Ничья! о_О " + getStatus());
+                } else if (summDealer < sumPlayer) {
+                  count = count + rate;
+                  alert("Выигрыш! :) " + getStatus() + " Счёт: " + count);
+                } else {
+                  count = count - rate;
+                  alert("Проигрыш :( " + getStatus() + " Счёт: " + count);
+                }
+              }
+            }
+          } while (answer == "1");
+        }
+        // запрос на продолжение игры
+
+        if (count <= 0) {
+          alert("Вы проиграли все деньги, просим покинуть наше казино!");
+          break;
+        } else {
+          repeating = parseInt(
+            prompt(
+              "На счёте " +
+                count +
+                " Сыграем ещё одну партию? (1 - да, иначе - нет)"
+            )
+          );
+        }
+      } while (repeating == 1);
+    </script>
+  </body>
+</html>
