@@ -1,0 +1,2 @@
+2_rotate_sprite.py
+pause
